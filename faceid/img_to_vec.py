@@ -41,5 +41,5 @@ def process_images_to_vectors(db_path, output_file="face_vectors.npy"):
     print("Face names saved to face_names.txt")
 
 if __name__ == "__main__":
-    db_path = "/Users/jamshid/Desktop/image2vec-best-alg/DB_500"
+    db_path = "/Users/jamshid/Desktop/image2vec-best-alg/DB_img"
     process_images_to_vectors(db_path)

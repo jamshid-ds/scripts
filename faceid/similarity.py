@@ -2,6 +2,7 @@ import numpy as np
 import os
 from PIL import Image
 from insightface.app import FaceAnalysis
+import time  # time modulini import qilamiz
 
 def findCosineDistance(source_representation, test_representation):
     a = np.matmul(np.transpose(source_representation), test_representation)
@@ -47,7 +48,7 @@ def find_similar_face(image_path, embeddings_path):
     # Calculate distances
     distances = []
     for embedding in all_embeddings:
-        distance = findEuclideanDistance(img_embedding, embedding)
+        distance = findCosineDistance(img_embedding, embedding)
         distances.append(distance)
     
     # Find most similar face
@@ -57,8 +58,18 @@ def find_similar_face(image_path, embeddings_path):
     return similar_face_name, distances[min_distance_idx]
 
 # Test the function
-image_path = "test.jpg"
+image_path = "app_v2/test_images/test_dicaprio_2.jpg"
 embeddings_path = "face_vectors.npy"
+
+# Vaqtni hisoblashni boshlaymiz
+start_time = time.time()
+
 similar_name, distance = find_similar_face(image_path, embeddings_path)
+
+# Vaqtni hisoblashni tugatamiz
+end_time = time.time()
+elapsed_time = end_time - start_time
+
 print(f"Eng o'xshash shaxs: {similar_name}")
 print(f"O'xshashlik darajasi: {1-distance:.2%}")
+print(f"Jarayon davom etgan vaqt: {elapsed_time:.2f} sekund")
